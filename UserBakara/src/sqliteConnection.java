@@ -8,7 +8,7 @@ public class sqliteConnection {
 	{
 		try{
 			Class.forName("org.sqlite.JDBC");
-			Connection con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Max\\workspace\\UserBakara\\employeeDB.sqlite");
+			Connection con = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Max\\git\\UserBakara\\employeeDB.sqlite");
 			JOptionPane.showMessageDialog(null, "Connection Succefull");
 			return con;
 		}catch(Exception e)

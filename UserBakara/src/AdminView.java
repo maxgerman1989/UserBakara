@@ -54,7 +54,7 @@ public class AdminView {
 	private JTextField Infected_textField;
 	public AdminView() throws SQLException {
 		initialize();
-		conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Max\\workspace\\UserBakara\\employeeDB.sqlite");
+		conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Max\\git\\UserBakara\\employeeDB.sqlite");
 		updateTable();
 		
 	}

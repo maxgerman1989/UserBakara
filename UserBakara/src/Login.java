@@ -45,7 +45,7 @@ public class Login {
 	static Properties mailServerProperties;
 	static Session getMailSession;
 	static MimeMessage generateMailMessage;
-	public static  void changeDB() throws AddressException, MessagingException
+	public static  void changeDB(String site) throws AddressException, MessagingException
 	{
 		
 		try {
@@ -69,8 +69,8 @@ public class Login {
 			generateMailMessage = new MimeMessage(getMailSession);
 			generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("maxgerman1989@gmail.com"));
 			generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("maxgerman1989@gmail.com"));
-			generateMailMessage.setSubject("Greetings from Crunchify..");
-			String emailBody = "Test email by Crunchify.com JavaMail API example. " + "<br><br> Regards, <br>Crunchify Admin";
+			generateMailMessage.setSubject("Infection Warning! !!!CRITICAL!!!");
+			String emailBody = "User: "+ textFieldUN.getText() +" is compromised, was trying to enter: " + site + "<br><br>Please proceed Actions,<br>Supreme Defence System.";
 			generateMailMessage.setContent(emailBody, "text/html");
 			System.out.println("Mail Session has been created successfully..");
 	 
