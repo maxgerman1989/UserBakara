@@ -61,7 +61,7 @@ public class AdminView {
 	
 	public static void updateTable() throws SQLException
 	{
-		//Second commidfghdfght!
+		//SThird Commit
 		String query = "select * from EmployeeInfo";
 		stmt = conn.createStatement();
 		resSet = stmt.executeQuery(query);
