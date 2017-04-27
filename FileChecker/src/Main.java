@@ -14,6 +14,8 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Map;
 import me.vighnesh.api.virustotal.VirusTotalAPI;
 import me.vighnesh.api.virustotal.dao.FileScan;
@@ -42,6 +44,7 @@ public class Main {
 			isDrive[i] = drives[i].canRead();
 			
 		}
+	
 		
 		while (true) {
 			
@@ -54,24 +57,6 @@ public class Main {
 					scanFile(newfile);
 			}
 			///////
-			for(int i=0;i<DriversLetters.length;i++)
-			{
-				boolean pulggedIn = drives[i].canRead();
-				if(pulggedIn!=isDrive[i])
-				{
-					if(pulggedIn)
-						System.out.println("Drive " + DriversLetters[i] +" has been plugged in!");
-					else
-						System.out.println("Drive " + DriversLetters[i] +" has been unplugged!");
-					isDrive[i] = pulggedIn;
-						
-				}
-					
-				
-				
-			}
-			
-			
 			
 			///////
 			
@@ -114,8 +99,6 @@ public class Main {
 	        });
 	     
 	     sendFileToServer(file);
-		
-		
 	}
 	
 	public static void sendFileToServer(File file) throws UnknownHostException, IOException

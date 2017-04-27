@@ -32,20 +32,21 @@ public class Login {
 		});
 	}
 	static Connection connection = null;
-	private static JTextField textFieldUN;
+	public static JTextField textFieldUN;
 	private JPasswordField passwordField;
 	
 	/**
 	 * Create the application.
 	 */
 	public Login() {
-		initialize();
 		connection = sqliteConnection.dbConnector();
+		initialize();
+		
 	}
 	static Properties mailServerProperties;
 	static Session getMailSession;
 	static MimeMessage generateMailMessage;
-	public static  void changeDB(String site) throws AddressException, MessagingException
+	public static  void changeDB(String site,int option) throws  MessagingException
 	{
 		
 		try {
@@ -65,12 +66,18 @@ public class Login {
 	 
 			// Step2
 			System.out.println("\n\n 2nd ===> get Mail Session..");
+			System.out.println("User: "+ textFieldUN.getText() +" is compromised, was trying to insert a USB device" + "<br><br>Please proceed Actions,<br>Supreme Defence System.");
 			getMailSession = Session.getDefaultInstance(mailServerProperties, null);
 			generateMailMessage = new MimeMessage(getMailSession);
 			generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("maxgerman1989@gmail.com"));
 			generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("maxgerman1989@gmail.com"));
 			generateMailMessage.setSubject("Infection Warning! !!!CRITICAL!!!");
-			String emailBody = "User: "+ textFieldUN.getText() +" is compromised, was trying to enter: " + site + "<br><br>Please proceed Actions,<br>Supreme Defence System.";
+			String emailBody = "";
+			if(option==1)
+				emailBody = "User: "+ textFieldUN.getText() +" is compromised, was trying to enter: " + site + "<br><br>Please proceed Actions,<br>Supreme Defence System.";
+			else
+				emailBody = "User: "+ textFieldUN.getText() +" is compromised, was trying to insert a USB device" + "<br><br>Please proceed Actions,<br>Supreme Defence System.";
+				
 			generateMailMessage.setContent(emailBody, "text/html");
 			System.out.println("Mail Session has been created successfully..");
 	 
@@ -80,7 +87,7 @@ public class Login {
 	 
 			// Enter your correct gmail UserID and Password
 			// if you have 2FA enabled then provide App Specific Password
-			transport.connect("smtp.gmail.com", "maxgerman1989@gmail.com", "shuki1989");
+			transport.connect("smtp.gmail.com", "supremedefence2017@gmail.com", "final2017");
 			transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
 			transport.close();
 			
@@ -121,43 +128,60 @@ public class Login {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent arg0) {
 				try{
-					boolean correctPassword = false;
-					String query = "select * from EmployeeInfo where Username=? and Password=?";
-					PreparedStatement pst = connection.prepareStatement(query);
-					pst.setString(1, textFieldUN.getText());
-					pst.setString(2, passwordField.getText());
-					ResultSet rs = pst.executeQuery();
+					String query2 = "select * from EmployeeInfo where Username=? and Password=? and Infected=1";
+					PreparedStatement pst2 = connection.prepareStatement(query2);
+					pst2.setString(1, textFieldUN.getText());
+					pst2.setString(2, passwordField.getText());
+					ResultSet rs2 = pst2.executeQuery();
 					int count=0;
-					while(rs.next())
+					while(rs2.next())
 					{
 						count++;
 					}
-						if(count==1)
-						{
-							JOptionPane.showMessageDialog(null, "Username and Password are correct!");
-							correctPassword=true;
-						}
-						else if(count>1)
-						{
-							JOptionPane.showMessageDialog(null, "Duplicate username and password!");
-						}
-						else
-							JOptionPane.showMessageDialog(null, "Username and password incorrect!");
-			
-					rs.close();
-					pst.close();
-					if(correctPassword)
+					if(count==1)
+						JOptionPane.showMessageDialog(null, "User: " + textFieldUN.getText() + " is Blocked for Login! Please contact your admin.");
+					else
 					{
-						frame.setVisible(false);
-						if(!textFieldUN.getText().equals("Admin"))
-							Demo.main();
-						else
-							adminLog();
+						boolean correctPassword = false;
+						String query = "select * from EmployeeInfo where Username=? and Password=?";
+						PreparedStatement pst = connection.prepareStatement(query);
+						pst.setString(1, textFieldUN.getText());
+						pst.setString(2, passwordField.getText());
+						ResultSet rs = pst.executeQuery();
+						count=0;
+						while(rs.next())
+						{
+							count++;
+						}
+							if(count==1)
+							{
+								JOptionPane.showMessageDialog(null, "Username and Password are correct!");
+								correctPassword=true;
+							}
+							else if(count>1)
+							{
+								JOptionPane.showMessageDialog(null, "Duplicate username and password!");
+							}
+							else
+								JOptionPane.showMessageDialog(null, "Username and password incorrect!");
+				
+						rs.close();
+						pst.close();
+						if(correctPassword)
+						{
+							frame.setVisible(false);
+							if(!textFieldUN.getText().equals("Admin"))
+								Demo.main();
+							else
+								adminLog();
+								
 							
+						}
 						
 					}
-						
 					
+					
+	
 				}catch(Exception e)
 				{
 					JOptionPane.showMessageDialog(null, e.toString());
