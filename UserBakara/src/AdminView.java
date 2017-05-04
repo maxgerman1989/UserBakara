@@ -243,9 +243,7 @@ public class AdminView {
 									e.printStackTrace();
 								}
 							
-								
-								
-								
+
 							}
 							
 						}

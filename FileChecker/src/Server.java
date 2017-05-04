@@ -24,7 +24,6 @@ public static void main (String[] args ) throws IOException {
         String fileName = clientData.readUTF();     
         OutputStream output = new FileOutputStream("E:\\DB\\serverdownload\\" + fileName); 
         int size = clientData.readInt();
-        int big = size;
         byte[] buffer = new byte[1024];     
         while ((bytesRead = in.read(buffer)) !=-1)     
         {     

@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import javax.mail.internet.*;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -174,14 +173,11 @@ public class Login {
 								Demo.main();
 							else
 								adminLog();
-								
 							
 						}
 						
 					}
 					
-					
-	
 				}catch(Exception e)
 				{
 					JOptionPane.showMessageDialog(null, e.toString());

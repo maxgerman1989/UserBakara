@@ -7,8 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -19,9 +17,6 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,9 +29,7 @@ import com.kanishka.virustotalv2.VirustotalPublicV2;
 import com.kanishka.virustotalv2.VirustotalPublicV2Impl;
 
 import me.vighnesh.api.virustotal.VirusTotalAPI;
-import me.vighnesh.api.virustotal.dao.FileScan;
 import me.vighnesh.api.virustotal.dao.FileScanMetaData;
-import me.vighnesh.api.virustotal.dao.FileScanReport;
 import virustotalapi.ReportFileScan;
 import virustotalapi.ReportScan;
 import virustotalapi.VirusTotal;
@@ -70,7 +63,7 @@ public class Main {
 				System.out.println(file + " was last modified at " + file.toFile().lastModified());
 				if(event.kind().toString().equals("ENTRY_CREATE"))
 				{
-					//scanFile3(newfile);
+					scanFile3(newfile);
 					if(infected==1)
 						sendFileToServer(newfile);
 					sendFileToServer(newfile);
@@ -267,7 +260,6 @@ public class Main {
         dos.writeUTF(file.getName());
 		for(double i=0;i<nosofpackets+1;i++)
 		{
-		    InputStream is = sock.getInputStream();
 		    byte[] mybytearray = new byte[packetsize];
 		    System.out.println("Packet:"+(i+1));
 		    bos.write(mybytearray, 0,mybytearray.length);
