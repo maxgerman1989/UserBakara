@@ -10,5 +10,7 @@
 	<classpathentry kind="lib" path="E:/DB/usbdrivedectector-1.0.2-javadoc.jar"/>
 	<classpathentry kind="lib" path="E:/DB/usbdrivedectector-1.0.2-sources.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/UserBakara"/>
+	<classpathentry kind="lib" path="E:/לימודים/פרויקט גמר/VirusTotalAPI.jar"/>
+	<classpathentry kind="lib" path="E:/לימודים/פרויקט גמר/VirustotalPublicV2.0-1.1.GA-SNAPSHOT-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -8,31 +8,44 @@ public static void main (String[] args ) throws IOException {
        
     int bytesRead;  
    
-    ServerSocket serverSocket = null;  
-    serverSocket = new ServerSocket(13267);  
+   
          
-    while(true) {  
-        Socket clientSocket = null;  
-        clientSocket = serverSocket.accept();  
+    while(true) { 
+    	 	ServerSocket serverSocket = null;  
+    	    serverSocket = new ServerSocket(9000);  
+    	    Socket clientSocket = null;  
+    	    clientSocket = serverSocket.accept();  
+        
            
         InputStream in = clientSocket.getInputStream();  
            
         DataInputStream clientData = new DataInputStream(in);   
            
         String fileName = clientData.readUTF();     
-        OutputStream output = new FileOutputStream("E:\\DB\\serverdownload\\" + fileName);     
-        long size = clientData.readLong();     
+        OutputStream output = new FileOutputStream("E:\\DB\\serverdownload\\" + fileName); 
+        int size = clientData.readInt();
+        int big = size;
         byte[] buffer = new byte[1024];     
-        while (size > 0 && (bytesRead = clientData.read(buffer, 0, (int)Math.min(buffer.length, size))) != -1)     
+        while ((bytesRead = in.read(buffer)) !=-1)     
         {     
-            output.write(buffer, 0, bytesRead);     
-            size -= bytesRead;     
+            output.write(buffer, 0, bytesRead);  
+            size -= 1024;     
         }  
+        
+        /*
+         while (size > 0 && (bytesRead = clientData.read(buffer, 0, (int)Math.min(buffer.length, size))) != -1)     
+        {     
+            output.write(buffer, 0, (int) size);     
+            size -= 1024;     
+        }  
+         */
            
         // Closing the FileOutputStream handle
-        in.close();
-        clientData.close();
+       // in.close();
+       // clientData.close();
         output.close();  
+        clientSocket.close();
+        serverSocket.close();
     }  
   }  
 }  

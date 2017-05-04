@@ -116,8 +116,6 @@ public class Demo {
 							
 					}
 						
-					
-					
 				}
 					Thread.sleep(128);
 					
