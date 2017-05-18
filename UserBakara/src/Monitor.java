@@ -18,7 +18,8 @@ import javax.mail.internet.*;
 
 
 
-public class Demo {
+
+public class Monitor {
 	private static boolean run = true;
 	static String str = "";
 	static int counter=0;
@@ -36,7 +37,6 @@ public class Demo {
 	            counter++;
 	          }
 	    bufferReader.close();
-	    
 		GlobalKeyboardHook keyboardHook = new GlobalKeyboardHook();
 		GlobalMouseHook mousehook = new GlobalMouseHook();
 		mousehook.addMouseListener(new GlobalMouseListener() {
@@ -57,6 +57,7 @@ public class Demo {
 			public void mousePressed(GlobalMouseEvent arg0) {
 				// TODO Auto-generated method stub
 				String clipboardTXT = getClipBoard();
+				System.out.println(clipboardTXT.toString());
 				
 				for(int i=0;i<counter;i++)
 				{
@@ -64,7 +65,7 @@ public class Demo {
 					if(clipboardTXT.contains(siteList.get(i)) && !(clipboardTXT.equals(temp)))
 					{
 						try {
-							Login.changeDB(siteList.get(i),1);
+							Login.updateDB(siteList.get(i),1);
 						} catch (AddressException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -105,7 +106,7 @@ public class Demo {
 					if(str.contains(siteList.get(i)))
 					{
 						try {
-							Login.changeDB(siteList.get(i),1);
+							Login.updateDB(siteList.get(i),1);
 						} catch (AddressException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -121,7 +122,7 @@ public class Demo {
 					if(clipboardTXT.contains(siteList.get(i)) && !(clipboardTXT.equals(temp)))
 					{
 						try {
-							Login.changeDB(siteList.get(i),1);
+							Login.updateDB(siteList.get(i),1);
 						} catch (AddressException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -162,7 +163,7 @@ public class Demo {
 						if(pulggedIn)
 						{
 							System.out.println("Drive " + DriversLetters[i] +" has been plugged in!");
-							Login.changeDB("none", 2);
+							Login.updateDB("none", 2);
 							
 						}
 							
@@ -182,13 +183,13 @@ public class Demo {
 	
 	public static String getClipBoard(){
 	    try {
-	        return (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+	    		return (String)Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
 	    } catch (HeadlessException e) {
 	        // TODO Auto-generated catch block
 	        e.printStackTrace();            
 	    } catch (UnsupportedFlavorException e) {
 	        // TODO Auto-generated catch block
-	        e.printStackTrace();            
+	        System.out.println("Not a String!");            
 	    } catch (IOException e) {
 	        // TODO Auto-generated catch block
 	        e.printStackTrace();

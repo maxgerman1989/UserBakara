@@ -47,9 +47,8 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		WatchService watchService = FileSystems.getDefault().newWatchService();
 		//My Second commit!!!!!
+		
 		Path directory = Paths.get("C:\\Users\\Max\\git\\FileChecker");
-		
-		
 		WatchKey watchKey = directory.register(watchService, 
 				StandardWatchEventKinds.ENTRY_CREATE, 
 				StandardWatchEventKinds.ENTRY_DELETE,
@@ -63,90 +62,16 @@ public class Main {
 				System.out.println(file + " was last modified at " + file.toFile().lastModified());
 				if(event.kind().toString().equals("ENTRY_CREATE"))
 				{
-					scanFile3(newfile);
+					//scanFile3(newfile);   //Only for testing
 					if(infected==1)
 						sendFileToServer(newfile);
-					sendFileToServer(newfile);
+					//sendFileToServer(newfile); //Only for testing
 				}
-			}
-			///////
-			
-			///////
-			
-			
+			}	
 		}
 	}
 
-	public static void scanFile(File file) throws FileNotFoundException, IOException
-	{
-		boolean loop  = true;
-		
-		
-        VirusTotalAPI virusTotal = VirusTotalAPI.configure("bc14cabd57bbe17756784b430e9d26171b1bc62e261f09f3e27395cef691ccce");
-        while(loop)
-        {
-        	if(file.exists())
-        		loop=false;
-        
-        }
-        
-        
-        FileScanMetaData scanFile = virusTotal.scanFile(file);
-        System.out.println("---SCAN META DATA---");
-        System.out.println("");
-        System.out.println("MD5 : " + scanFile.getMD5());
-        System.out.println("SH-1 : " + scanFile.getSHA1());
-        System.out.println("SHA-256 : " + scanFile.getSHA256());
-        System.out.println("Permalink : " + scanFile.getPermalink());
-        System.out.println("Resource : " + scanFile.getResource());
-        System.out.println("Scan Id : " + scanFile.getScanId());
-        System.out.println("Response Code : " + scanFile.getResponseCode());
-	    scanFile2(file);
-	    getReport(file, scanFile.getSHA256());
-	    
-	     /////
-	     /*
-	     String fileId = scanFile.getMD5();
-	     FileScanReport fileReport = virusTotal.getFileReport(fileId);
-	     @SuppressWarnings("rawtypes")
-	     Map scans = fileReport.getScans();
-	     scans.keySet().stream().forEach((scan) -> {
-	     FileScan report = (FileScan) scans.get(scan);
-	     System.out.println("Scan Engine : " + scan);
-	     if (report.isDetected())
-	     {
-	    	 infected = 1;
-		     System.out.println("Version : " + report.getVersion());
-		     System.out.println("Update : " + report.getUpdate());
-		     System.out.println("Malware : " + report.getMalware());
-	     } else {
-	             System.out.println("No Virus Detected");
-	     }
-	        });
-	     */
-	}
-	public static void getReport(File file,String SHA256) throws IOException
-	{
-		 VirusTotal VT = new VirusTotal("bc14cabd57bbe17756784b430e9d26171b1bc62e261f09f3e27395cef691ccce");
-		 Set <ReportScan> Report = VT.ReportScan(SHA256);
-		    for(ReportScan report : Report){
-	            System.out.println("AV: "+report.getVendor()+" Detected: "+report.getDetected()+" Update: "+report.getUpdate()+" Malware Name: "+report.getMalwarename());
-	            if(report.getDetected().equals("true"))
-	            	infected=1;
-	        }
-		
-	}
-	public static void scanFile2(File file) throws FileNotFoundException, IOException
-	{
-			VirusTotal VT = new VirusTotal("bc14cabd57bbe17756784b430e9d26171b1bc62e261f09f3e27395cef691ccce"); // Your Virus Total API Key
-			Set <ReportFileScan> Report = VT.sendFileScan(file.toString());
-		    for(ReportFileScan report : Report){
-	            System.out.println("URL: "+report.getPermaLink()+" Response code: "+report.getResponseCode());
-	        }
-		   
-		    
-		    
-	}
+
 	  public static void scanFile3(File file) {
 	        try {
 	            VirusTotalConfig.getConfigInstance().setVirusTotalAPIKey("bc14cabd57bbe17756784b430e9d26171b1bc62e261f09f3e27395cef691ccce");
@@ -245,31 +170,5 @@ public class Main {
         sock.close(); 
         dis.close();
 	}
-	public static void sendFileToServer2(File file,Socket sock) throws UnknownHostException, IOException
-	{
-		int packetsize=1024;
-		FileOutputStream fos = new FileOutputStream(file);
-		BufferedOutputStream bos = new BufferedOutputStream(fos);
-		double nosofpackets=Math.ceil(((int) (file.length())/packetsize));
-		if(nosofpackets==0)
-			nosofpackets=1;
-		java.io.OutputStream os = sock.getOutputStream();  
-        //Sending file name and file size to the server  
-        DataOutputStream dos = new DataOutputStream(os);
-        dos.writeDouble(nosofpackets);
-        dos.writeUTF(file.getName());
-		for(double i=0;i<nosofpackets+1;i++)
-		{
-		    byte[] mybytearray = new byte[packetsize];
-		    System.out.println("Packet:"+(i+1));
-		    bos.write(mybytearray, 0,mybytearray.length);
-		}
-		sock.close();
-		bos.close();
-		dos.close();
-		
-	}
-	
-	
 
 }

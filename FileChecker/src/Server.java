@@ -31,13 +31,6 @@ public static void main (String[] args ) throws IOException {
             size -= 1024;     
         }  
         
-        /*
-         while (size > 0 && (bytesRead = clientData.read(buffer, 0, (int)Math.min(buffer.length, size))) != -1)     
-        {     
-            output.write(buffer, 0, (int) size);     
-            size -= 1024;     
-        }  
-         */
            
         // Closing the FileOutputStream handle
        // in.close();

@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 
 public class AdminView {
 
-	private JFrame frame;
+	private JFrame frmSupremedefenceAdmin;
 	private static JTable table;
 
 	/**
@@ -32,7 +32,7 @@ public class AdminView {
 			public void run() {
 				try {
 					AdminView window = new AdminView();
-					window.frame.setVisible(true);
+					window.frmSupremedefenceAdmin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -62,7 +62,7 @@ public class AdminView {
 	
 	public static void updateTable() throws SQLException
 	{
-		//SThird Commit
+		//Third Commit
 		String query = "select * from EmployeeInfo";
 		stmt = conn.createStatement();
 		resSet = stmt.executeQuery(query);
@@ -74,14 +74,15 @@ public class AdminView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 641, 455);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmSupremedefenceAdmin = new JFrame();
+		frmSupremedefenceAdmin.setTitle("SupremeDefence - Admin");
+		frmSupremedefenceAdmin.setBounds(100, 100, 641, 455);
+		frmSupremedefenceAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSupremedefenceAdmin.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(168, 0, 364, 172);
-		frame.getContentPane().add(scrollPane);
+		frmSupremedefenceAdmin.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
@@ -110,61 +111,61 @@ public class AdminView {
 			}
 		});
 		btnNewButton.setBounds(312, 183, 89, 23);
-		frame.getContentPane().add(btnNewButton);
+		frmSupremedefenceAdmin.getContentPane().add(btnNewButton);
 		
 		EID_textField = new JTextField();
 		EID_textField.setBounds(72, 23, 86, 20);
-		frame.getContentPane().add(EID_textField);
+		frmSupremedefenceAdmin.getContentPane().add(EID_textField);
 		EID_textField.setColumns(10);
 		
 		Name_textField = new JTextField();
 		Name_textField.setColumns(10);
 		Name_textField.setBounds(72, 54, 86, 20);
-		frame.getContentPane().add(Name_textField);
+		frmSupremedefenceAdmin.getContentPane().add(Name_textField);
 		
 		Surname_textField = new JTextField();
 		Surname_textField.setColumns(10);
 		Surname_textField.setBounds(72, 85, 86, 20);
-		frame.getContentPane().add(Surname_textField);
+		frmSupremedefenceAdmin.getContentPane().add(Surname_textField);
 		
 		Username_textField = new JTextField();
 		Username_textField.setColumns(10);
 		Username_textField.setBounds(72, 116, 86, 20);
-		frame.getContentPane().add(Username_textField);
+		frmSupremedefenceAdmin.getContentPane().add(Username_textField);
 		
 		Password_textField = new JTextField();
 		Password_textField.setColumns(10);
 		Password_textField.setBounds(72, 147, 86, 20);
-		frame.getContentPane().add(Password_textField);
+		frmSupremedefenceAdmin.getContentPane().add(Password_textField);
 		
 		Infected_textField = new JTextField();
 		Infected_textField.setColumns(10);
 		Infected_textField.setBounds(72, 178, 86, 20);
-		frame.getContentPane().add(Infected_textField);
+		frmSupremedefenceAdmin.getContentPane().add(Infected_textField);
 		
 		JLabel lblEid = new JLabel("EID");
 		lblEid.setBounds(10, 26, 46, 14);
-		frame.getContentPane().add(lblEid);
+		frmSupremedefenceAdmin.getContentPane().add(lblEid);
 		
 		JLabel lblName = new JLabel("Name");
 		lblName.setBounds(10, 57, 52, 14);
-		frame.getContentPane().add(lblName);
+		frmSupremedefenceAdmin.getContentPane().add(lblName);
 		
 		JLabel lblSurname = new JLabel("Surname");
 		lblSurname.setBounds(10, 88, 61, 14);
-		frame.getContentPane().add(lblSurname);
+		frmSupremedefenceAdmin.getContentPane().add(lblSurname);
 		
 		JLabel lblUsername = new JLabel("Username");
 		lblUsername.setBounds(10, 119, 61, 14);
-		frame.getContentPane().add(lblUsername);
+		frmSupremedefenceAdmin.getContentPane().add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setBounds(10, 150, 61, 14);
-		frame.getContentPane().add(lblPassword);
+		frmSupremedefenceAdmin.getContentPane().add(lblPassword);
 		
 		JLabel lblInfected = new JLabel("Infected");
 		lblInfected.setBounds(10, 183, 46, 14);
-		frame.getContentPane().add(lblInfected);
+		frmSupremedefenceAdmin.getContentPane().add(lblInfected);
 		
 		JButton btnNewButton_1 = new JButton("Update");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -190,7 +191,7 @@ public class AdminView {
 			}
 		});
 		btnNewButton_1.setBounds(20, 209, 89, 23);
-		frame.getContentPane().add(btnNewButton_1);
+		frmSupremedefenceAdmin.getContentPane().add(btnNewButton_1);
 		
 		JButton btnAddUser = new JButton("Add User");
 		btnAddUser.addActionListener(new ActionListener() {
@@ -261,7 +262,7 @@ public class AdminView {
 			}
 		});
 		btnAddUser.setBounds(119, 209, 89, 23);
-		frame.getContentPane().add(btnAddUser);
+		frmSupremedefenceAdmin.getContentPane().add(btnAddUser);
 		
 		JButton btnNewButton_2 = new JButton("Delete User");
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -303,6 +304,6 @@ public class AdminView {
 			}
 		});
 		btnNewButton_2.setBounds(49, 243, 122, 23);
-		frame.getContentPane().add(btnNewButton_2);
+		frmSupremedefenceAdmin.getContentPane().add(btnNewButton_2);
 	}
 }

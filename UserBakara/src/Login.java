@@ -11,9 +11,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.awt.Window.Type;
 public class Login {
 
-	private JFrame frame;
+	private JFrame frmSupremedefence;
 
 	/**
 	 * Launch the application.
@@ -23,7 +24,7 @@ public class Login {
 			public void run() {
 				try {
 					Login window = new Login();
-					window.frame.setVisible(true);
+					window.frmSupremedefence.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,7 +46,7 @@ public class Login {
 	static Properties mailServerProperties;
 	static Session getMailSession;
 	static MimeMessage generateMailMessage;
-	public static  void changeDB(String site,int option) throws  MessagingException
+	public static  void updateDB(String site,int option) throws  MessagingException
 	{
 		
 		try {
@@ -104,22 +105,23 @@ public class Login {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 509, 343);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmSupremedefence = new JFrame();
+		frmSupremedefence.setTitle("SupremeDefence");
+		frmSupremedefence.setBounds(100, 100, 509, 343);
+		frmSupremedefence.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSupremedefence.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Username");
 		lblNewLabel.setBounds(123, 90, 73, 14);
-		frame.getContentPane().add(lblNewLabel);
+		frmSupremedefence.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Password");
 		lblNewLabel_1.setBounds(123, 139, 73, 14);
-		frame.getContentPane().add(lblNewLabel_1);
+		frmSupremedefence.getContentPane().add(lblNewLabel_1);
 		
 		textFieldUN = new JTextField();
 		textFieldUN.setBounds(235, 87, 86, 20);
-		frame.getContentPane().add(textFieldUN);
+		frmSupremedefence.getContentPane().add(textFieldUN);
 		textFieldUN.setColumns(10);
 		
 		JButton btnLogin = new JButton("Login");
@@ -168,12 +170,11 @@ public class Login {
 						pst.close();
 						if(correctPassword)
 						{
-							frame.setVisible(false);
+							frmSupremedefence.setVisible(false);
 							if(!textFieldUN.getText().equals("Admin"))
-								Demo.main();
+								Monitor.main();
 							else
 								adminLog();
-							
 						}
 						
 					}
@@ -187,16 +188,23 @@ public class Login {
 			}
 		});
 		btnLogin.setBounds(176, 194, 89, 23);
-		frame.getContentPane().add(btnLogin);
+		frmSupremedefence.getContentPane().add(btnLogin);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(235, 136, 86, 20);
-		frame.getContentPane().add(passwordField);
+		frmSupremedefence.getContentPane().add(passwordField);
+		
+		JLabel lblWelcome = new JLabel("Welcome!");
+		lblWelcome.setBounds(235, 11, 86, 14);
+		frmSupremedefence.getContentPane().add(lblWelcome);
+		
+		JLabel lblPleaseEnterYour = new JLabel("Please enter your Username and Password");
+		lblPleaseEnterYour.setBounds(138, 36, 289, 40);
+		frmSupremedefence.getContentPane().add(lblPleaseEnterYour);
 	}
 	
 	public static void adminLog() throws IOException, SQLException
 	{
-		//AdminView admin = new AdminView();
 		AdminView.main();
 		
 		
