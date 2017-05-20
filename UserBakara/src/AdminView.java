@@ -174,17 +174,41 @@ public class AdminView {
 						JOptionPane.showMessageDialog(null, "Please enter EID number");
 					else
 					{
-						String query = "Update EmployeeInfo set EID='" + EID_textField.getText()+"' ,Name='" + Name_textField.getText()+"' ,Surname='" + Surname_textField.getText()+"' ,Username='"+Username_textField.getText()+"' ,Password='"+Password_textField.getText()+"' ,Infected='"+Infected_textField.getText()+"' where EID='" + EID_textField.getText()+"'" ;
+						
+						int count=0;
 						try {
+							String query2 = "select * from EmployeeInfo  where EID=?";
+							PreparedStatement pst2 = conn.prepareStatement(query2);
+							pst2.setString(1, EID_textField.getText());
+							ResultSet rs2 = pst2.executeQuery();
 							
-							PreparedStatement pst = conn.prepareStatement(query);
-							pst.execute();
-							pst.close();
-							updateTable();
-						} catch (SQLException e) {
+							while(rs2.next())
+							{
+								count++;
+							}
+							
+						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
+							e1.printStackTrace();
 						}
+						
+						if(count>0)
+						{
+							try {
+								String query = "Update EmployeeInfo set EID='" + EID_textField.getText()+"' ,Name='" + Name_textField.getText()+"' ,Surname='" + Surname_textField.getText()+"' ,Username='"+Username_textField.getText()+"' ,Password='"+Password_textField.getText()+"' ,Infected='"+Infected_textField.getText()+"' where EID='" + EID_textField.getText()+"'" ;
+								PreparedStatement pst = conn.prepareStatement(query);
+								pst.execute();
+								pst.close();
+								updateTable();
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Employee with EID: " + EID_textField.getText()+ " does not exist.");
+							
+					
 						
 						
 					}	

@@ -66,7 +66,6 @@ public class Login {
 	 
 			// Step2
 			System.out.println("\n\n 2nd ===> get Mail Session..");
-			System.out.println("User: "+ textFieldUN.getText() +" is compromised, was trying to insert a USB device" + "<br><br>Please proceed Actions,<br>Supreme Defence System.");
 			getMailSession = Session.getDefaultInstance(mailServerProperties, null);
 			generateMailMessage = new MimeMessage(getMailSession);
 			generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("maxgerman1989@gmail.com"));
@@ -80,7 +79,6 @@ public class Login {
 				
 			generateMailMessage.setContent(emailBody, "text/html");
 			System.out.println("Mail Session has been created successfully..");
-	 
 			// Step3
 			System.out.println("\n\n 3rd ===> Get Session and Send mail");
 			Transport transport = getMailSession.getTransport("smtp");
